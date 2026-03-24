@@ -22,8 +22,8 @@ app.use('/api/categories', categoriesRoutes);
 
 app.use(errorHandler);
 
-connectDB();
-
-app.listen(PORT, () => {
-  console.log(`Server corriendo en puerto ${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server corriendo en puerto ${PORT}`);
+  });
 });

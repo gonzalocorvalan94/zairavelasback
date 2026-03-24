@@ -5,11 +5,13 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { connectDB } from './src/config/db.js';
 import authRoutes from './src/routes/auth.routes.js';
+import errorHandler from './src/middlewares/errorHandler.js';
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(errorHandler);
 app.use(helmet());
 app.use(cors());
 app.use(morgan('dev'));

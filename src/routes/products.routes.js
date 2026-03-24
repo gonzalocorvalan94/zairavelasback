@@ -12,7 +12,8 @@ import multer from 'multer';
 import { body } from 'express-validator';
 
 const router = Router();
-const upload = multer({ dest: 'uploads/' });
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const validations = [
   body('name').notEmpty().withMessage('El nombre es requerido'),

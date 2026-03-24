@@ -2,6 +2,19 @@ import asyncHandler from '../utils/asyncHandler.js';
 import * as Product from '../models/product.model.js';
 import cloudinary from '../config/cloudinary.js';
 
+const uploadToCloudinary = (buffer) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: 'ecommerce/products' },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+};
+
 const getAll = asyncHandler(async (req, res) => {
   const { category_id, active } = req.query;
   const filters = {};
@@ -24,9 +37,7 @@ const create = asyncHandler(async (req, res) => {
 
   let image_url = null;
   if (req.file) {
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'ecommerce/products',
-    });
+    const result = await uploadToCloudinary(req.file.buffer);
     image_url = result.secure_url;
   }
 
@@ -51,9 +62,7 @@ const update = asyncHandler(async (req, res) => {
 
   let image_url = existing.image_url;
   if (req.file) {
-    const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'ecommerce/products',
-    });
+    const result = await uploadToCloudinary(req.file.buffer);
     image_url = result.secure_url;
   }
 

@@ -6,11 +6,21 @@ const findByEmail = async (email) => {
 };
 
 const create = async ({ name, email, password_hash }) => {
-  const [result] = await pool.query(
-    'INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)',
-    [name, email, password_hash]
-  );
-  return result.insertId;
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+    const [result] = await conn.query(
+      'INSERT INTO users (name, email, password_hash) VALUES (?, ?, ?)',
+      [name, email, password_hash]
+    );
+    await conn.commit();
+    return result.insertId;
+  } catch (error) {
+    await conn.rollback();
+    throw error;
+  } finally {
+    conn.release();
+  }
 };
 
 const findById = async (id) => {

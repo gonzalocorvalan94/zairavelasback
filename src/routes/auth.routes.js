@@ -8,7 +8,9 @@ const router = Router();
 const registerValidations = [
   body('name').notEmpty().withMessage('El nombre es requerido'),
   body('email').isEmail().withMessage('Email inválido'),
-  body('password').isLength({ min: 6 }).withMessage('La contraseña debe tener al menos 6 caracteres'),
+  body('password')
+    .isLength({ min: 6 })
+    .withMessage('La contraseña debe tener al menos 6 caracteres'),
 ];
 
 const loginValidations = [

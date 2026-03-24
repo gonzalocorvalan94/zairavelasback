@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import { connectDB } from './src/config/db.js';
 import authRoutes from './src/routes/auth.routes.js';
 import categoriesRoutes from './src/routes/categories.routes.js';
+import productsRoutes from './src/routes/products.routes.js';
 import errorHandler from './src/middlewares/errorHandler.js';
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 
 app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoriesRoutes);
+app.use('/api/products', productsRoutes);
 
 app.use(errorHandler);
 

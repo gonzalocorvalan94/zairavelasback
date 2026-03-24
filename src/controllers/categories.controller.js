@@ -8,7 +8,8 @@ const getAll = asyncHandler(async (req, res) => {
 
 const getOne = asyncHandler(async (req, res) => {
   const category = await Category.findById(req.params.id);
-  if (!category) return res.status(404).json({ message: 'Categoría no encontrada' });
+  if (!category)
+    return res.status(404).json({ message: 'Categoría no encontrada' });
   res.json({ category });
 });
 
@@ -16,7 +17,8 @@ const create = asyncHandler(async (req, res) => {
   const { name, slug } = req.body;
 
   const existing = await Category.findBySlug(slug);
-  if (existing) return res.status(400).json({ message: 'El slug ya está en uso' });
+  if (existing)
+    return res.status(400).json({ message: 'El slug ya está en uso' });
 
   const id = await Category.create({ name, slug });
   const category = await Category.findById(id);
@@ -27,7 +29,8 @@ const update = asyncHandler(async (req, res) => {
   const { name, slug } = req.body;
 
   const category = await Category.findById(req.params.id);
-  if (!category) return res.status(404).json({ message: 'Categoría no encontrada' });
+  if (!category)
+    return res.status(404).json({ message: 'Categoría no encontrada' });
 
   const existing = await Category.findBySlug(slug);
   if (existing && existing.id !== parseInt(req.params.id)) {
@@ -41,7 +44,8 @@ const update = asyncHandler(async (req, res) => {
 
 const remove = asyncHandler(async (req, res) => {
   const category = await Category.findById(req.params.id);
-  if (!category) return res.status(404).json({ message: 'Categoría no encontrada' });
+  if (!category)
+    return res.status(404).json({ message: 'Categoría no encontrada' });
 
   await Category.remove(req.params.id);
   res.json({ message: 'Categoría eliminada' });

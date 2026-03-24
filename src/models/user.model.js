@@ -1,7 +1,9 @@
 import { pool } from '../config/db.js';
 
 const findByEmail = async (email) => {
-  const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+  const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [
+    email,
+  ]);
   return rows[0] || null;
 };
 

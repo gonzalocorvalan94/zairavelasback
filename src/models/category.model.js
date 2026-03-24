@@ -6,12 +6,16 @@ const getAll = async () => {
 };
 
 const findById = async (id) => {
-  const [rows] = await pool.query('SELECT * FROM categories WHERE id = ?', [id]);
+  const [rows] = await pool.query('SELECT * FROM categories WHERE id = ?', [
+    id,
+  ]);
   return rows[0] || null;
 };
 
 const findBySlug = async (slug) => {
-  const [rows] = await pool.query('SELECT * FROM categories WHERE slug = ?', [slug]);
+  const [rows] = await pool.query('SELECT * FROM categories WHERE slug = ?', [
+    slug,
+  ]);
   return rows[0] || null;
 };
 
@@ -32,7 +36,9 @@ const update = async (id, { name, slug }) => {
 };
 
 const remove = async (id) => {
-  const [result] = await pool.query('DELETE FROM categories WHERE id = ?', [id]);
+  const [result] = await pool.query('DELETE FROM categories WHERE id = ?', [
+    id,
+  ]);
   return result.affectedRows;
 };
 

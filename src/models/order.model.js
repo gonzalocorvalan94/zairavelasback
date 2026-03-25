@@ -1,4 +1,4 @@
-import pool from '../config/db.js';
+import { pool } from '../config/db.js';
 
 export const create = async ({ user_id, total, items, shipping }) => {
   const conn = await pool.getConnection();

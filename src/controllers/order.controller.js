@@ -86,7 +86,7 @@ export const createOrder = asyncHandler(async (req, res) => {
         failure: `${process.env.FRONTEND_URL}/orders/failure`,
         pending: `${process.env.FRONTEND_URL}/orders/pending`,
       },
-      auto_return: 'approved',
+      //auto_return: 'approved',
       notification_url: `${process.env.BACKEND_URL}/orders/webhook`,
     },
   });

@@ -157,7 +157,7 @@ export const getOne = asyncHandler(async (req, res) => {
   const order = await Order.findById(req.params.id);
   if (!order) return res.status(404).json({ message: 'Orden no encontrada' });
 
-  if (!req.user.is_admin && order.user_id !== req.user.id) {
+  if (req.user?.role !== 'admin' && order.user_id !== req.user.id) {
     return res.status(403).json({ message: 'Acceso denegado' });
   }
 
